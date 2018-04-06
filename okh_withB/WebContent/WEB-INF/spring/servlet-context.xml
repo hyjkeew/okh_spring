@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- 스프링 MVC annotation(주석문)을 활성화하기 위해 사용된다 -->
+	<context:annotation-config/>
+
+	<!-- viewResolver 설정 (사용자 view의 위치, 확장자명 설정)// 이는 ViewResolver가 "WEB-INF/view/뷰이름.jsp"를 뷰 JSP로 사용한다는 것을 의미한다. 
+	// 즉, 앞의 예에서 HelloController는 뷰 이름으로 "hello"를 리턴하므로, 실제로 사용되는 뷰 파일은 "WEB-INF/view/hello.jsp"파일이 된다.-->
+	<!-- myClass cls = new myClass(); -->
+	<!-- 이거는페이지하나일때설정되는거라서그렇다
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">	
+		<property name="prefix" value="/WEB-INF/views/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean> -->
+	
+	<!-- tiles설정 - 화면분활해서 뷰파일을배치하는거  -->
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/views/layouts.xml</value>	<!-- 여기설정파일을기본으로 tiles만들겠다 -->
+			</list>
+		</property>
+	</bean>
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="requestContextAttribute" value="requestContext"/>
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+	</bean>
+	
+	<!-- java 파일의 공통 package 설정 -->
+	<context:component-scan base-package="kh.com.a"/>
+	
+	<!-- 주석문의 사용허가 -->
+	<mvc:annotation-driven/>
+	<!-- spring에서 처리할수없는요청은 tomcat에 위임 -->
+	<mvc:default-servlet-handler/>
+	
+	<!-- upload -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="104857600"/>
+		<property name="maxInMemorySize" value="102400"/>
+		<property name="defaultEncoding" value="utf-8"/>
+		<property name="uploadTempDir" value="upload"/>
+	</bean>
+	
+	<!-- download -->
+	<bean id="downloadView" class="kh.com.a.arrow.DownloadView"/>
+	<bean id="downloadViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order">
+			<value>0</value>
+		</property>
+	</bean>
+</beans>
+
+
+
+
+
+
+

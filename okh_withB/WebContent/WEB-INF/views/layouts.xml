@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+<definition name="login.tiles" template="/WEB-INF/views/login/login.jsp"></definition>
+<definition name="regi.tiles" template="/WEB-INF/views/login/regi.jsp"></definition>
+<definition name="techbbslist.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
+	<put-attribute name="left_menu" value="/WEB-INF/views/common/left_menu.jsp"/>
+	<put-attribute name="main" value="/WEB-INF/views/techbbs/techbbs.jsp"/>
+</definition>
+	<definition name="login.tiles" extends="techbbslist.tiles"> <!-- extends상속받는거다 -->
+		<put-attribute name="main" value="/WEB-INF/views/login/login.jsp"/>
+	</definition>
+	<definition name="regi.tiles" extends="techbbslist.tiles"> <!-- extends상속받는거다 -->
+		<put-attribute name="main" value="/WEB-INF/views/login/join.jsp"/>
+	</definition>
+</tiles-definitions>
