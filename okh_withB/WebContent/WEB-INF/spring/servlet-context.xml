@@ -33,7 +33,7 @@
 	</bean>
 	
 	<!-- java 파일의 공통 package 설정 -->
-	<context:component-scan base-package="kh.com.a"/>
+	<context:component-scan base-package="kh.com.okh"/>
 	
 	<!-- 주석문의 사용허가 -->
 	<mvc:annotation-driven/>
